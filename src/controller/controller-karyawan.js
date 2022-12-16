@@ -121,6 +121,24 @@ controller.delete = async (req, res) => {
     }
 }
 
+controller.deleteById = async (req, res) => {
+    try {
+        let id = req.params.nik
+        console.log(id)
+        let obj = {
+            nik: id
+        }
+        await service.destroyKaryawan(obj)
+        res.status(status.statusCode.success).json(status.successMessage({
+            message: "berhasil menghapus nik ".concat(id)
+        }))
+
+    } catch (e) {
+        console.log(e)
+        res.status(status.statusCode.bad).json(status.errorMessage(e))
+    }
+}
+
 controller.getFLightMule = async (req, res) => {
     try {
         let rs = await api.getFlights()
