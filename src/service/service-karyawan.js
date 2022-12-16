@@ -3,13 +3,11 @@ const model = require('../model/index')
 const { Op } = require('sequelize');
 
 service.updateKaryawan = async (obj) => {
-    let result = await model.karyawanModel.update(obj, {
+    return await model.karyawanModel.update(obj, {
         where: {
             nik: obj.nik
         }
-    })
-
-    return result;
+    });
 }
 
 service.saveKaryawan = (obj) => {
