@@ -12,10 +12,8 @@ service.updateKaryawan = async (obj) => {
     return result;
 }
 
-service.saveKaryawan = async (obj) => {
-    let result = await model.karyawanModel.create(obj)
-
-    return result;
+service.saveKaryawan = (obj) => {
+    return model.karyawanModel.create(obj);
 }
 
 service.destroyKaryawan = async(obj) => {
@@ -25,7 +23,6 @@ service.destroyKaryawan = async(obj) => {
         },
         force: true
     })
-
 }
 
 service.getKaryawanByNik = async (nik) => {

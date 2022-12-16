@@ -87,7 +87,7 @@ controller.saveBulkKaryawan = async (req, res) => {
             const lastNik = await db.query(query.prosesIncrement, {
                 type: db.QueryTypes.SELECT,
             })
-            await model.karyawanModel.create({
+            await service.saveKaryawan({
                 nik: util.isObjectEmpty(lastNik) ? 1 : lastNik[0].lastNik,
                 alamat: create[i].alamat,
                 nama: create[i].nama,
