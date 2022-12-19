@@ -76,6 +76,7 @@ controller.getByNik = async (req, res) => {
     }
 }
 
+//digunakan 1 object untik saat ini
 controller.saveBulkKaryawan = async (req, res) => {
     //save update bulk
     try{
@@ -83,15 +84,18 @@ controller.saveBulkKaryawan = async (req, res) => {
         
         //session create
         let create = masukan.filter((value) => value.nik === undefined)
+        let arrGabung = []
         for (let i = 0; i < create.length; i++) {
+
             const lastNik = await db.query(query.prosesIncrement, {
                 type: db.QueryTypes.SELECT,
             })
-            await service.saveKaryawan({
+            let add1 = await service.saveKaryawan({
                 nik: util.isObjectEmpty(lastNik) ? 1 : lastNik[0].lastNik,
                 alamat: create[i].alamat,
                 nama: create[i].nama,
             })
+            arrGabung.push(add1.dataValues)
         }
 
         //session update    
@@ -100,7 +104,8 @@ controller.saveBulkKaryawan = async (req, res) => {
             await service.updateKaryawan(val)
 
         })
-        res.status(status.statusCode.success).json(status.successMessage(masukan))
+        arrGabung.push(...update)
+        res.status(status.statusCode.success).json(status.successMessage(arrGabung))
 
     } catch(err){
         console.log(err);
