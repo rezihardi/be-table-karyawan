@@ -124,7 +124,6 @@ controller.delete = async (req, res) => {
 controller.deleteById = async (req, res) => {
     try {
         let id = req.params.nik
-        console.log(id)
         let obj = {
             nik: id
         }
@@ -136,6 +135,21 @@ controller.deleteById = async (req, res) => {
     } catch (e) {
         console.log(e)
         res.status(status.statusCode.bad).json(status.errorMessage(e))
+    }
+}
+
+controller.editByid = async (req, res) => {
+    try {
+        console.log("start")
+        let obj = req.body
+        await service.updateKaryawan(obj)
+        res.status(status.statusCode.success).json(status.successMessage({
+            message: "berhasil mengubah data pada nik ".concat(obj.nik)
+        }))
+    } catch (e){
+        console.log(e)
+        res.status(status.statusCode.bad).json(status.errorMessage(e))
+
     }
 }
 
