@@ -9,4 +9,8 @@ router.get('/one-karyawan/:nik', controller.karyawan.getByNik);
 router.put('/edit-karyawan-obj', controller.karyawan.editByid);
 router.delete('/delete-by-id/:nik', controller.karyawan.deleteById);
 
+router.get('/all-product', controller.product.getProduct);
+router.post('/products', controller.product.saveProduct);
+
+
 module.exports = router;

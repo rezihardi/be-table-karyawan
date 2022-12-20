@@ -1,4 +1,3 @@
-
 const Sequelize = require("sequelize");
 const db = require("../config/database")
 const model = db.define(
@@ -31,9 +30,9 @@ const model = db.define(
                 if (this.nama.length < 7) {
                     throw new Error("panjang nama harus diatas 7 karakter atau lebih!");
                 }
-                if (this.nama.length > 10) {
-                    throw new Error("panjang nama tidak boleh melebihi 10 karakter");
-                }
+                // if (this.nama.length > 10) {
+                //     throw new Error("panjang nama tidak boleh melebihi 10 karakter");
+                // }
                 if (this.alamat.includes("jalan")) {
                     throw new Error("alamat tidak dapat menggunakan kata jalan");
                 }

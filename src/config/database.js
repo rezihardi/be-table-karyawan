@@ -15,6 +15,10 @@ const db = new Sequelize('sarana', process.env.DB_USER, '', {
 
 });
 
+(async()=>{
+    await db.sync();
+})();
+
 db.authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');
