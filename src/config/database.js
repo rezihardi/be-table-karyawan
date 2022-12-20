@@ -1,9 +1,9 @@
 const Sequelize = require("sequelize");
 
-const db = new Sequelize('sarana', process.env.DB_USER, '', {
+const db = new Sequelize('sarana', 'root', '', {
 	dialect: 'mysql',
-	host: process.env.DB_HOST,
-	port: process.env.DB_PORT,
+	host: 'localhost',
+	port: 3306,
 	// logging : false,
 	//logging : console.log,
 	pool: {
