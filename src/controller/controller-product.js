@@ -57,7 +57,7 @@ controller.getProductById = async (req, res) => {
                 name: id
             }
         })
-        res.status(status.statusCode.success).json(status.successMessage(response));
+        util.isObjectEmpty(response) ? res.status(status.statusCode.notfound).json(status.emptyMessage()) : res.status(status.statusCode.success).json(status.successMessage(response));
     }catch (e) {
         console.log(e)
         res.status(status.statusCode.bad).json(status.errorMessage(e))
