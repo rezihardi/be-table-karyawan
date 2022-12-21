@@ -6,6 +6,7 @@ const model = require('../model/index')
 const util = require('../helpers/util')
 const { Op } = require('sequelize');
 const path = require('path')
+const fs = require("fs");
 // import fs from "fs";
 
 controller.getProduct = async (req, res) => {
@@ -68,5 +69,29 @@ controller.getProductById = async (req, res) => {
     }
 }
 
+controller.deleteProductById = async (req, res) => {
+    try{
+        const id = req.params.id
+        const product = await model.productModel.findOne({
+            where: {
+                name: id
+            }
+        })
+        if(util.isObjectEmpty(product)) return res.status(404).json({msg: "No Data Found"});
+
+        const filepath = `./public/images/${product.image}`
+        fs.unlinkSync(filepath)
+        await model.productModel.destroy({
+            where : {
+                name: id
+            }
+        })
+        res.status(status.statusCode.success).json(status.successMessage(id))
+    } catch (e) {
+        console.log(e)
+        res.status(status.statusCode.bad).json(status.errorMessage(e))
+
+    }
+}
 
 module.exports = controller;
