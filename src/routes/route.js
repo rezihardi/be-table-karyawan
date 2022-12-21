@@ -13,6 +13,7 @@ router.get('/all-product', controller.product.getProduct);
 router.post('/products', controller.product.saveProduct)
 router.get('/get-product-by-id/:id', controller.product.getProductById)
 router.delete('/delete-product-by-id/:id', controller.product.deleteProductById)
+router.put('/updateProduct/:id', controller.product.updateProduct)
 
 
 module.exports = router;
