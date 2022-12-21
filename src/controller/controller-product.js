@@ -10,7 +10,11 @@ const path = require('path')
 
 controller.getProduct = async (req, res) => {
     try {
-        const response = await model.productModel.findAll()
+        const response = await model.productModel.findAll({
+            order: [
+                ['createdAt', 'DESC']
+            ],
+        })
         res.status(status.statusCode.success).json(status.successMessage(response));
 
     } catch (error) {
@@ -63,7 +67,6 @@ controller.getProductById = async (req, res) => {
         res.status(status.statusCode.bad).json(status.errorMessage(e))
     }
 }
-
 
 
 module.exports = controller;
