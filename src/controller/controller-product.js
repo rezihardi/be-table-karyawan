@@ -77,7 +77,7 @@ controller.deleteProductById = async (req, res) => {
                 name: id
             }
         })
-        if(util.isObjectEmpty(product)) return res.status(404).json({msg: "No Data Found"});
+        if(util.isObjectEmpty(product)) return res.status(status.statusCode.notfound).json(status.emptyMessage())
 
         const filepath = `./public/images/${product.image}`
         fs.unlinkSync(filepath)
