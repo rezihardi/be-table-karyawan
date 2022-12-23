@@ -15,9 +15,12 @@ const db = new Sequelize('sarana', 'root', '', {
 
 });
 
-(async()=>{
-    await db.sync();
-})();
+
+//async tabel db
+
+// (async()=>{
+//     await db.sync();
+// })();
 
 db.authenticate()
   .then(() => {
