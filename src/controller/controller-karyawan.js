@@ -8,8 +8,6 @@ const service = require('../service/service-karyawan')
 const { Op } = require('sequelize');
 const api = require('../service/api-axios')
 
-
-
 controller.getKaryawan = async (req, res) => {
     try{
         let result
@@ -162,14 +160,25 @@ controller.getFLightMule = async (req, res) => {
     try {
         //EMBED FROM MULE
         let rs = await api.getFlights()
-        let filteredLax = rs.filter((value) =>
-            value.destination === 'LAX' && value.plane.type === 'Boeing 777'
+        let filteredLax = rs.filter((value) => //GET LIST
+            value.destination === 'LAX' && value.plane.type === 'Boeing 777' /*&& value.emptySeats > 200*/
         )
         let findingNotLax = rs.find((el) => //GET 1 ONLY
             el.plane.type === 'Boeing 787' && el.destination !== 'LAX'
         )
         filteredLax.push(findingNotLax)
         res.status(status.statusCode.success).json(status.successMessage(filteredLax))
+    } catch (e) {
+        console.log(e.message)
+        res.status(status.statusCode.bad).json(status.errorMessage(e.message))
+    }
+}
+
+controller.getIPAddr = async (req, res) => {
+    try {
+        const ip = req.params.ip
+        const rs = await api.getIPAddr(ip)
+        res.status(status.statusCode.success).json(status.successMessage(rs))
     } catch (e) {
         console.log(e.message)
         res.status(status.statusCode.bad).json(status.errorMessage(e.message))

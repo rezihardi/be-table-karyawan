@@ -5,7 +5,6 @@ const util = require('../helpers/util')
 
 api.getFlights = async() => {
     try{
-
         let data = await axios({
             method: 'get',
             url: `http://test-training-proxy.sg-s1.cloudhub.io/flights`,
@@ -18,6 +17,19 @@ api.getFlights = async() => {
     } catch (e) {
         console.log(e)
         return []
+    }
+}
+
+api.getIPAddr = async(reqApi) => {
+    try {
+        let data = await axios({
+            method: 'get',
+            url: `http://ipapi.co/${reqApi}/json`,
+        })
+        return (util.isObjectEmpty(data.data)) ? null : data.data
+    } catch (e){
+        console.log('masuk catch', e.message)
+        return {}
     }
 }
 
