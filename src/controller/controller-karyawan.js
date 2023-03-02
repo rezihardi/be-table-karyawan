@@ -5,7 +5,6 @@ const status = require('../helpers/status-helper')
 const model = require('../model/index')
 const util = require('../helpers/util')
 const service = require('../service/service-karyawan')
-const {response} = require("express");
 const { Op } = require('sequelize');
 const api = require('../service/api-axios')
 
@@ -13,7 +12,7 @@ const api = require('../service/api-axios')
 
 controller.getKaryawan = async (req, res) => {
     try{
-        let result = {}
+        let result
         const limit = parseInt(req.query.limit) || 10
         const page = parseInt(req.query.page) || 0
         const search = req.query.search_query || ""
@@ -63,7 +62,7 @@ controller.getKaryawan = async (req, res) => {
 
 controller.getByNik = async (req, res) => {
     try{
-        let rs = {}
+        let rs
         let nik = req.params.nik
         rs = await service.getKaryawanByNik(nik)
 
@@ -166,8 +165,8 @@ controller.getFLightMule = async (req, res) => {
         let filteredLax = rs.filter((value) =>
             value.destination === 'LAX' && value.plane.type === 'Boeing 777'
         )
-        let findingNotLax = rs.find((el) =>
-            el.plane.type === 'Boeing 787'
+        let findingNotLax = rs.find((el) => //GET 1 ONLY
+            el.plane.type === 'Boeing 787' && el.destination !== 'LAX'
         )
         filteredLax.push(findingNotLax)
         res.status(status.statusCode.success).json(status.successMessage(filteredLax))
