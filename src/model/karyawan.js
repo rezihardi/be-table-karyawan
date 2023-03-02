@@ -28,13 +28,13 @@ const model = db.define(
         validate: {
             userValidation() {
                 if (this.nama.length < 7) {
-                    throw new Error("panjang nama harus diatas 7 karakter atau lebih!");
+                    throw new Error("panjang nama ".concat(this.nama).concat(" harus lebih dari 7 karakter"))
                 }
                 // if (this.nama.length > 10) {
                 //     throw new Error("panjang nama tidak boleh melebihi 10 karakter");
                 // }
                 if (this.alamat.includes("jalan")) {
-                    throw new Error("alamat tidak dapat menggunakan kata jalan");
+                    throw new Error("alamat tidak dapat menggunakan kata jalan")
                 }
             },
         },

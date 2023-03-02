@@ -109,7 +109,6 @@ controller.saveBulkKaryawan = async (req, res) => {
         res.status(status.statusCode.success).json(status.successMessage(arrGabung))
 
     } catch(err){
-        console.log('err', err.message);
         res.status(status.statusCode.bad).json(status.errorMessage(err.message))
     }
 }
