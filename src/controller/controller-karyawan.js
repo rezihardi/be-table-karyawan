@@ -70,8 +70,8 @@ controller.getByNik = async (req, res) => {
             res.status(status.statusCode.notfound).json(status.emptyFile("nik tersebut kosong")) :
             res.status(status.statusCode.success).json(status.successMessage(rs));
     } catch (e){
-        console.log(e)
-        res.status(status.statusCode.bad).json(status.errorMessage(e))
+        console.log(e.message)
+        res.status(status.statusCode.bad).json(status.errorMessage(e.message))
     }
 }
 
@@ -109,8 +109,8 @@ controller.saveBulkKaryawan = async (req, res) => {
         res.status(status.statusCode.success).json(status.successMessage(arrGabung))
 
     } catch(err){
-        console.log(err);
-        res.status(status.statusCode.bad).json(status.errorMessage(err))
+        console.log('err', err.message);
+        res.status(status.statusCode.bad).json(status.errorMessage(err.message))
     }
 }
 
@@ -139,8 +139,8 @@ controller.deleteById = async (req, res) => {
         }))
 
     } catch (e) {
-        console.log(e)
-        res.status(status.statusCode.bad).json(status.errorMessage(e))
+        console.log(e.message)
+        res.status(status.statusCode.bad).json(status.errorMessage(e.message))
     }
 }
 
@@ -161,6 +161,7 @@ controller.editByid = async (req, res) => {
 
 controller.getFLightMule = async (req, res) => {
     try {
+        //EMBED FROM MULE
         let rs = await api.getFlights()
         let filteredLax = rs.filter((value) =>
             value.destination === 'LAX' && value.plane.type === 'Boeing 777'
@@ -171,8 +172,8 @@ controller.getFLightMule = async (req, res) => {
         filteredLax.push(findingNotLax)
         res.status(status.statusCode.success).json(status.successMessage(filteredLax))
     } catch (e) {
-        console.log(e)
-        res.status(status.statusCode.bad).json(status.errorMessage(e))
+        console.log(e.message)
+        res.status(status.statusCode.bad).json(status.errorMessage(e.message))
     }
 }
 
